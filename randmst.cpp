@@ -12,7 +12,14 @@ double randNum() {
   return double(rand()) / (double(RAND_MAX) + 1.0);
 }
 
-int main() {
+int main(int argc, char** argv) {
+
+    cout << "There are " << argc 
+         << " argument(s) entered:" << "\n"; 
+  
+    for (int i = 0; i < argc; ++i) 
+        cout << argv[i] << "\n"; 
+
 
     // number of random numbers
     int n = 5;
@@ -36,8 +43,6 @@ int main() {
         cout << PAIR.first << " "; 
         cout << PAIR.second << endl;
     }
-
-    cout << endl; 
 
     // TODO: generating nums for graphs 3 & 4
     srand(static_cast<unsigned int>(clock()));

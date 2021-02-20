@@ -2,8 +2,10 @@
 #include <ctime>
 #include <iostream>
 #include <utility> 
+#include <tuple>
 
 using namespace std; 
+
 
 // Random number generator
 // Will produce n random real numbers on interval [0,1]

@@ -6,7 +6,6 @@
 
 using namespace std; 
 
-
 // Random number generator
 // Will produce n random real numbers on interval [0,1]
 double randNum() {

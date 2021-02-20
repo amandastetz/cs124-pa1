@@ -37,7 +37,7 @@ int main() {
         cout << PAIR.second << endl;
     }
 
-    cout <<  " wtf" << endl; 
+    cout << endl; 
 
     // TODO: generating nums for graphs 3 & 4
     srand(static_cast<unsigned int>(clock()));
@@ -57,11 +57,11 @@ int main() {
         //cout << get<1>(tpl) << " "; 
         //cout << get<2>(tpl) << endl; 
 
-        int tpl [3];
+        int tpl [3] = {randNum(), randNum(), randNum()};
 
-        tpl [0] = randNum();
-        tpl [1] = randNum();
-        tpl [2] = randNum();
+        //tpl [0] = randNum();
+        //tpl [1] = randNum();
+        //tpl [2] = randNum();
 
         cout << tpl [0] << " ";
         cout << tpl [1] << " ";

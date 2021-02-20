@@ -37,7 +37,37 @@ int main() {
         cout << PAIR.second << endl;
     }
 
+    cout <<  " wtf" << endl; 
+
     // TODO: generating nums for graphs 3 & 4
+    srand(static_cast<unsigned int>(clock()));
+    for (int i=0; i < n; i++) {
+        //tuple<double, double, double> tpl;
+        
+        //tuple<int,char> fifth (10,'a');  
+
+        //auto tpl = make_tuple(5.5, 10.0, 15.5); 
+
+        //get<0>(tpl) = randNum();
+        //get<1>(tpl) = randNum();
+        //get<2>(tpl) = randNum();
+
+
+        //cout << get<0>(tpl) << " ";
+        //cout << get<1>(tpl) << " "; 
+        //cout << get<2>(tpl) << endl; 
+
+        int tpl [3];
+
+        tpl [0] = randNum();
+        tpl [1] = randNum();
+        tpl [2] = randNum();
+
+        cout << tpl [0] << " ";
+        cout << tpl [1] << " ";
+        cout << tpl [2] << endl;
+    }
+
     return 0;
 }
 

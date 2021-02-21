@@ -41,42 +41,43 @@ int main(int argc, char** argv) {
     // prints n tuples of random numbers --> for graph 2
     srand(static_cast<unsigned int>(clock()));
     for (int i=0; i < n; i++) {
-        pair<double, double> PAIR;
+        // pair<double, double> PAIR;
 
-        PAIR.first = randNum();
-        PAIR.second = randNum();
+        // PAIR.first = randNum();
+        // PAIR.second = randNum();
 
-        cout << PAIR.first << " "; 
-        cout << PAIR.second << endl;
+        // cout << PAIR.first << " "; 
+        // cout << PAIR.second << endl;
+
+        double arr [2] = {randNum(), randNum()};
+
+        cout << arr [0] << " ";
+        cout << arr [1] << endl;
     }
+    cout << endl;
 
     // TODO: generating nums for graphs 3 & 4
     srand(static_cast<unsigned int>(clock()));
     for (int i=0; i < n; i++) {
-        // tuple<double, double, double> tpl;
-        
-        // tuple<int,char> fifth (10,'a');  
-
-        // auto tpl = make_tuple(5.5, 10.0, 15.5); 
-
-        // get<0>(tpl) = randNum();
-        // get<1>(tpl) = randNum();
-        // get<2>(tpl) = randNum();
-
-
-        // cout << get<0>(tpl) << " ";
-        // cout << get<1>(tpl) << " "; 
-        // cout << get<2>(tpl) << endl; 
 
         double tpl [3] = {randNum(), randNum(), randNum()};
-
-        tpl [0] = randNum();
-        tpl [1] = randNum();
-        tpl [2] = randNum();
 
         cout << tpl [0] << " ";
         cout << tpl [1] << " ";
         cout << tpl [2] << endl;
+    }
+    cout << endl;
+
+    // TODO: generating nums for graphs 3 & 4
+    srand(static_cast<unsigned int>(clock()));
+    for (int i=0; i < n; i++) {
+
+        double tpl [4] = {randNum(), randNum(), randNum(), randNum()};
+
+        cout << tpl [0] << " ";
+        cout << tpl [1] << " ";
+        cout << tpl [2] << " ";
+        cout << tpl [3] << endl;
     }
 
     return 0;

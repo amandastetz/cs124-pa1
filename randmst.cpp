@@ -20,6 +20,8 @@ int main(int argc, char** argv) {
     for (int i = 0; i < argc; ++i) 
         cout << i << ":" << argv[i] << "\n"; 
 
+    // put something like ./randmst 12 23 34
+    // need to have something after ./randmst
     char* num1 = argv[1];
     
     cout << num1 << "\n";

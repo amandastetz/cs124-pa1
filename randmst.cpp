@@ -18,7 +18,11 @@ int main(int argc, char** argv) {
          << " argument(s) entered:" << "\n"; 
   
     for (int i = 0; i < argc; ++i) 
-        cout << argv[i] << "\n"; 
+        cout << i << ":" << argv[i] << "\n"; 
+
+    char* num1 = argv[1];
+    
+    cout << num1 << "\n";
 
 
     // number of random numbers

@@ -2,7 +2,7 @@
 #include <ctime>
 #include <iostream>
 #include <utility> 
-#include <tuple>
+#include <sstream>
 
 using namespace std; 
 
@@ -12,7 +12,7 @@ double randNum() {
   return double(rand()) / (double(RAND_MAX) + 1.0);
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
 
     cout << "There are " << argc 
          << " argument(s) entered:" << "\n"; 
@@ -22,10 +22,11 @@ int main(int argc, char** argv) {
 
     // put something like ./randmst 12 23 34
     // need to have something after ./randmst
-    char* num1 = argv[1];
     
-    cout << num1 << "\n";
-
+    // convert char to int
+    for(int i = 1; i < argc; i++) {
+        cout << atoi(argv[i]) << endl;
+    }
 
     // number of random numbers
     int n = 5;
@@ -41,14 +42,6 @@ int main(int argc, char** argv) {
     // prints n tuples of random numbers --> for graph 2
     srand(static_cast<unsigned int>(clock()));
     for (int i=0; i < n; i++) {
-        // pair<double, double> PAIR;
-
-        // PAIR.first = randNum();
-        // PAIR.second = randNum();
-
-        // cout << PAIR.first << " "; 
-        // cout << PAIR.second << endl;
-
         double arr [2] = {randNum(), randNum()};
 
         cout << arr [0] << " ";

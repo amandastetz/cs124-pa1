@@ -31,10 +31,10 @@ int main(int argc, char **argv) {
     // number of random numbers
     int n = 5;
 
-    // Create adjacency matrix of size n x n
+    // Create adjacency matrix of size n x n for dim 0
     double adjMatrix[n][n];
 
-    // Fill adjacency matrix
+    // Fill adjacency matrix for dim 0
     for (int i = 0; i <n; i++) {
         for (int j = 0; j<n; j++) {
             if (i == j) {
@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
 
     cout << "adjacency matrix" << endl;
 
-    // Print out adjacency matrix
+    // Print out adjacency matrix for dim 0
     for(int i = 0; i < n; i++) {
       for(int j = 0; j < n; j++) {
          cout << adjMatrix[i][j] << " ";

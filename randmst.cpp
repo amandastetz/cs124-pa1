@@ -78,7 +78,7 @@ int main(int argc, char **argv) {
     double dim2coords[n][2];
     for (int i=0; i < n; i++) {
         dim2coords[i][0] = randNum();
-        dim2coords[i][0] = randNum();
+        dim2coords[i][1] = randNum();
         cout << dim2coords[i][0] << " ";
         cout << dim2coords[i][1] << endl;
     }

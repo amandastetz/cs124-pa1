@@ -24,11 +24,12 @@ int main(int argc, char* argv[]) {
     // put something like ./randmst 12 23 34
     // need to have something after ./randmst
     
-    // number of random numbers
+    // number of vertices
     int n = atoi(argv[1]);
 
     // number of dimensions inputted - 0, 2, 3, 4
-    int dim = 0;
+    int dim = atoi(argv[2]);
+    // int dim = 0;
 
     // Create adjacency matrix of size n x n
     double adjMatrix[n][n];

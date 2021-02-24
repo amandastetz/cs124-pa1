@@ -3,7 +3,7 @@
 #include <iostream>
 #include <utility> 
 #include <sstream>
-#include<cmath>
+#include <cmath>
 
 using namespace std; 
 #define INF 9999999
@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
 
     cout << "There are " << argc 
          << " argument(s) entered:" << "\n"; 
-  
+
     for (int i = 0; i < argc; ++i) 
         cout << i << ":" << argv[i] << "\n"; 
 
@@ -221,8 +221,60 @@ int main(int argc, char* argv[]) {
     }
     else {cout << "Incorrect number of dimensions inputted!\n" << endl;}
 
-    
-   
-        
+
+     // selected will become true otherwise false
+    int selected[V];
+
+  // set selected false initially
+  memset(selected, false, sizeof(selected));
+
+  // set number of edge to 0
+  int no_edge = 0;
+
+  // the number of egde in minimum spanning tree will be
+  // always less than (V -1), where V is number of vertices in
+  //graph
+
+  // choose 0th vertex and make it true
+  selected[0] = true;
+
+  int x;  //  row number
+  int y;  //  col number
+
+  // print for edge and weight
+  cout << "Edge"
+     << " : "
+     << "Weight";
+  cout << endl;
+
+  while (no_edge < V - 1) {
+    //For every vertex in the set S, find the all adjacent vertices
+    // , calculate the distance from the vertex selected at step 1.
+    // if the vertex is already in the set S, discard it otherwise
+    //choose another vertex nearest to selected vertex  at step 1.
+
+    int min = INF;
+    x = 0;
+    y = 0;
+
+    for (int i = 0; i < V; i++) {
+      if (selected[i]) {
+        for (int j = 0; j < V; j++) {
+          if (!selected[j] && adjMatrix[i][j]) {  // not in selected and there is an edge
+            if (min > adjMatrix[i][j]) {
+              min = adjMatrix[i][j];
+              x = i;
+              y = j;
+            }
+          }
+        }
+      }
+    }
+    cout << x << " - " << y << " :  " << adjMatrix[x][y];
+    cout << endl;
+    selected[y] = true;
+    no_edge++;
+  }
+
     return 0;
 }

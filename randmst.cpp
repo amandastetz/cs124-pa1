@@ -6,6 +6,8 @@
 #include<cmath>
 
 using namespace std; 
+#define INF 9999999
+#define V n
 
 // Random number generator
 // Will produce n random real numbers on interval [0,1]
@@ -30,13 +32,11 @@ int main(int argc, char* argv[]) {
     // number of trials 
     int trials = atoi(argv[3]);
 
-        // number of dimensions - 0, 2, 3, 4
+    // number of dimensions - 0, 2, 3, 4
     int dim = atoi(argv[4]);
 
     // Create adjacency matrix of size n x n
     double adjMatrix[n][n];
-
-    // TODO: Create cases per dimension
 
     if (dim == 0) {
         //////////////////////////////////////////////////////////////
@@ -55,7 +55,9 @@ int main(int argc, char* argv[]) {
                         // edge weight between i and j
                         double x = randNum();
                         adjMatrix[i][j] = x;
-                        //adjMatrix[j][i] = x;
+                        if (adjMatrix[i][j] == x){
+                            adjMatrix[j][i] = x;
+                        };
                     }
                 }
             }
@@ -99,6 +101,9 @@ int main(int argc, char* argv[]) {
                                         pow((dim2coords[i][1] - dim2coords[j][1]), 2);
                         double dist = sqrt(sqdist);
                         adjMatrix[i][j] = dist;
+                        if (adjMatrix[i][j] == dist){
+                            adjMatrix[j][i] = dist;
+                        };
                         // adjMatrix[j][i] = x;
                     }
                 }
@@ -145,6 +150,9 @@ int main(int argc, char* argv[]) {
                                         pow((dim3coords[i][2] - dim3coords[j][2]), 2);
                         double dist = sqrt(sqdist);
                         adjMatrix[i][j] = dist;
+                        if (adjMatrix[i][j] == dist){
+                            adjMatrix[j][i] = dist;
+                        };
                     }
                 }
             }
@@ -193,6 +201,9 @@ int main(int argc, char* argv[]) {
                                         pow((dim4coords[i][3] - dim4coords[j][3]), 2);
                         double dist = sqrt(sqdist);
                         adjMatrix[i][j] = dist;
+                        if (adjMatrix[i][j] == dist){
+                            adjMatrix[j][i] = dist;
+                        };
                     }
                 }
             }
@@ -209,7 +220,9 @@ int main(int argc, char* argv[]) {
         }
     }
     else {cout << "Incorrect number of dimensions inputted!\n" << endl;}
+
+    
+   
+        
     return 0;
 }
-
-

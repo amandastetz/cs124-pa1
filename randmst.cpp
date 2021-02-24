@@ -3,6 +3,7 @@
 #include <iostream>
 #include <utility> 
 #include <sstream>
+#include<cmath>
 
 using namespace std; 
 
@@ -31,33 +32,84 @@ int main(int argc, char **argv) {
     // number of random numbers
     int n = 5;
 
-    // Create adjacency matrix of size n x n for dim 0
+    // Create adjacency matrix of size n x n
     double adjMatrix[n][n];
+
+    // TODO: Create cases per dimension
+
+    //////////////////////////////////////////////////////////////
+    // Dimension 0
+    //////////////////////////////////////////////////////////////
 
     // Fill adjacency matrix for dim 0
     for (int i = 0; i <n; i++) {
         for (int j = 0; j<n; j++) {
             if (i == j) {
+                // Fill diagonal values with 0
                 adjMatrix[i][j] = 0;
             }
             else {
+                // Generate random value as 
+                // edge weight between i and j
                 double x = randNum();
-                cout << x << " this is x" << endl;
                 adjMatrix[i][j] = x;
-                adjMatrix[j][i] = x;
+                //adjMatrix[j][i] = x;
             }
         }
     }
 
-    cout << "adjacency matrix" << endl;
 
     // Print out adjacency matrix for dim 0
+    cout << "adjacency matrix" << endl;
     for(int i = 0; i < n; i++) {
       for(int j = 0; j < n; j++) {
          cout << adjMatrix[i][j] << " ";
       }
       cout << endl;
    }
+
+    cout << " " << endl;
+    //////////////////////////////////////////////////////////////
+    // Dimension 2 
+    //////////////////////////////////////////////////////////////
+    cout << " entering dim 2" << endl;
+    // Create coordinates for the n vertices
+    // Array holding coordinates in dim 2
+    double dim2coords[n][2];
+    for (int i=0; i < n; i++) {
+        dim2coords[i][0] = randNum();
+        dim2coords[i][0] = randNum();
+        cout << dim2coords[i][0] << " ";
+        cout << dim2coords[i][1] << endl;
+    }
+
+    // Adjacency matrix for dim 2
+    for (int i = 0; i <n; i++) {
+        for (int j = 0; j<n; j++) {
+            if (i == j) {
+                adjMatrix[i][j] = 0;
+            }
+            else {
+                double sqdist = pow((dim2coords[i][0] - dim2coords[j][0]), 2) + pow((dim2coords[i][1] - dim2coords[j][1]), 2);
+                double dist = sqrt(sqdist);
+                adjMatrix[i][j] = dist;
+                // adjMatrix[j][i] = x;
+            }
+        }
+    }
+
+    // Print out adjacency matrix for dim 2
+    cout << "adjacency matrix dim 2" << endl;
+    for(int i = 0; i < n; i++) {
+      for(int j = 0; j < n; j++) {
+         cout << adjMatrix[i][j] << " ";
+      }
+      cout << endl;
+   }
+
+    cout << " " << endl;
+
+    //////////////////////////////////////////////////////////////
 
     // prints n random numbers --> for graph 1, dimension 0
     srand(static_cast<unsigned int>(clock()));

@@ -12,7 +12,8 @@ using namespace std;
 // Random number generator
 // Will produce n random real numbers on interval [0,1]
 double randNum() {
-  return double(rand()) / (double(RAND_MAX) + 1.0);
+    srand(static_cast<unsigned int>(clock()));
+    return double(rand()) / (double(RAND_MAX) + 1.0);
 }
 
 // A utility function to find the vertex with  

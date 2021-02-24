@@ -13,7 +13,7 @@ double randNum() {
   return double(rand()) / (double(RAND_MAX) + 1.0);
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char* argv[]) {
 
     cout << "There are " << argc 
          << " argument(s) entered:" << "\n"; 
@@ -24,13 +24,8 @@ int main(int argc, char **argv) {
     // put something like ./randmst 12 23 34
     // need to have something after ./randmst
     
-    // convert char to int
-    for(int i = 1; i < argc; i++) {
-        cout << atoi(argv[i]) << endl;
-    }
-
     // number of random numbers
-    int n = 5;
+    int n = atoi(argv[1]);
 
     // Create adjacency matrix of size n x n
     double adjMatrix[n][n];

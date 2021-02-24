@@ -25,13 +25,13 @@ int main(int argc, char* argv[]) {
     // need to have something after ./randmst
     
     // number of vertices
-    int n = atoi(argv[1]);
+    int n = atoi(argv[2]);
 
     // number of dimensions - 0, 2, 3, 4
-    int dim = atoi(argv[2]);
+    int dim = atoi(argv[3]);
 
     // number of trials 
-    int trials = atoi(argv[3]);
+    int trials = atoi(argv[4]);
 
     // Create adjacency matrix of size n x n
     double adjMatrix[n][n];

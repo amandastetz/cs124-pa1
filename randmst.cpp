@@ -1,19 +1,21 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+#include <stdlib.h>
 #include <utility> 
 #include <sstream>
 #include <cmath>
 
 using namespace std; 
 #define INF 9999999
-#define V n
+
+// #define V n
 
 // Random number generator
 // Will produce n random real numbers on interval [0,1]
+
 double randNum() {
-    srand(static_cast<unsigned int>(clock()));
-    return double(rand()) / (double(RAND_MAX) + 1.0);
+return double(rand()) / (double(RAND_MAX) + 1.0);
 }
 
 // A utility function to find the vertex with  
@@ -53,6 +55,8 @@ int main(int argc, char* argv[]) {
 
     // Create adjacency matrix of size n x n
     double adjMatrix[n][n];
+
+    srand(static_cast<unsigned int>(clock()));
 
     if (dim == 0) {
         //////////////////////////////////////////////////////////////

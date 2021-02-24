@@ -21,7 +21,7 @@ return double(rand()) / (double(RAND_MAX) + 1.0);
 // A utility function to find the vertex with  
 // minimum key value, from the set of vertices  
 // not yet included in MST  
-int minKey(int key[], bool mstSet[], int n)  
+int minKey(double key[], bool mstSet[], int n)  
 {  
     // Initialize min value  
     int min = INT_MAX, min_index;  
@@ -249,7 +249,7 @@ int main(int argc, char* argv[]) {
     int parent[n];  
       
     // Key values used to pick minimum weight edge in cut  
-    int key[n];  
+    double key[n];  
       
     // To represent set of vertices included in MST  
     bool mstSet[n];  
@@ -290,9 +290,15 @@ int main(int argc, char* argv[]) {
   
     // print the constructed MST  
     cout<<"Edge \tWeight\n";  
-    for (int i = 1; i < n; i++)  
+    for (int i = 1; i < n; i++)  {
         cout<<parent[i]<<" - "<<i<<" \t"<<adjMatrix[i][parent[i]]<<" \n"; 
+    }
+    cout << " Key :" << endl;
+    for (int i = 1; i < n; i++)  {
+        cout<<key[i] << " ";
+    }
 
+    cout << endl;
 
     return 0;
 }

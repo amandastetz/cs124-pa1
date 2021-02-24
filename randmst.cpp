@@ -110,48 +110,94 @@ int main(int argc, char **argv) {
     cout << " " << endl;
 
     //////////////////////////////////////////////////////////////
-
-    // prints n random numbers --> for graph 1, dimension 0
-    srand(static_cast<unsigned int>(clock()));
+    // Dimension 3
+    //////////////////////////////////////////////////////////////
+    cout << " entering dim 3" << endl;
+    // Create coordinates for the n vertices
+    // Array holding coordinates in dim 3
+    double dim3coords[n][3];
     for (int i=0; i < n; i++) {
-        double x = randNum();
-        cout << x << "\n";
+        dim3coords[i][0] = randNum();
+        dim3coords[i][1] = randNum();
+        dim3coords[i][2] = randNum();
+        cout << dim3coords[i][0] << " ";
+        cout << dim3coords[i][1] << " ";
+        cout << dim3coords[i][2] << endl;
     }
-    cout << endl; 
-    
-    // prints n tuples of random numbers --> for graph 2
-    srand(static_cast<unsigned int>(clock()));
+
+    // Adjacency matrix for dim 2
+    for (int i = 0; i <n; i++) {
+        for (int j = 0; j<n; j++) {
+            if (i == j) {
+                adjMatrix[i][j] = 0;
+            }
+            else {
+                double sqdist = pow((dim3coords[i][0] - dim3coords[j][0]), 2) + 
+                                pow((dim3coords[i][1] - dim3coords[j][1]), 2) + 
+                                pow((dim3coords[i][2] - dim3coords[j][2]), 2);
+                double dist = sqrt(sqdist);
+                adjMatrix[i][j] = dist;
+            }
+        }
+    }
+
+    // Print out adjacency matrix for dim 3
+    cout << "adjacency matrix dim 3" << endl;
+    for(int i = 0; i < n; i++) {
+      for(int j = 0; j < n; j++) {
+         cout << adjMatrix[i][j] << " ";
+      }
+      cout << endl;
+   }
+
+    cout << " " << endl;
+
+    //////////////////////////////////////////////////////////////
+    // Dimension 4
+    //////////////////////////////////////////////////////////////
+    cout << " entering dim 4" << endl;
+    // Create coordinates for the n vertices
+    // Array holding coordinates in dim 3
+    double dim4coords[n][4];
     for (int i=0; i < n; i++) {
-        double arr [2] = {randNum(), randNum()};
-
-        cout << arr [0] << " ";
-        cout << arr [1] << endl;
+        dim4coords[i][0] = randNum();
+        dim4coords[i][1] = randNum();
+        dim4coords[i][2] = randNum();
+        dim4coords[i][3] = randNum();
+        cout << dim4coords[i][0] << " ";
+        cout << dim4coords[i][1] << " ";
+        cout << dim4coords[i][2] << " ";
+        cout << dim4coords[i][3] << endl;
     }
-    cout << endl;
 
-    // TODO: generating nums for graphs 3 & 4
-    srand(static_cast<unsigned int>(clock()));
-    for (int i=0; i < n; i++) {
-
-        double tpl [3] = {randNum(), randNum(), randNum()};
-
-        cout << tpl [0] << " ";
-        cout << tpl [1] << " ";
-        cout << tpl [2] << endl;
+    // Adjacency matrix for dim 2
+    for (int i = 0; i <n; i++) {
+        for (int j = 0; j<n; j++) {
+            if (i == j) {
+                adjMatrix[i][j] = 0;
+            }
+            else {
+                double sqdist = pow((dim4coords[i][0] - dim4coords[j][0]), 2) + 
+                                pow((dim4coords[i][1] - dim4coords[j][1]), 2) + 
+                                pow((dim4coords[i][2] - dim4coords[j][2]), 2) +
+                                pow((dim4coords[i][3] - dim4coords[j][3]), 2);
+                double dist = sqrt(sqdist);
+                adjMatrix[i][j] = dist;
+            }
+        }
     }
-    cout << endl;
 
-    // TODO: generating nums for graphs 3 & 4
-    srand(static_cast<unsigned int>(clock()));
-    for (int i=0; i < n; i++) {
+    // Print out adjacency matrix for dim 4
+    cout << "adjacency matrix dim 4" << endl;
+    for(int i = 0; i < n; i++) {
+      for(int j = 0; j < n; j++) {
+         cout << adjMatrix[i][j] << " ";
+      }
+      cout << endl;
+   }
 
-        double tpl [4] = {randNum(), randNum(), randNum(), randNum()};
+    cout << " " << endl;
 
-        cout << tpl [0] << " ";
-        cout << tpl [1] << " ";
-        cout << tpl [2] << " ";
-        cout << tpl [3] << endl;
-    }
 
     return 0;
 }

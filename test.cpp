@@ -6,7 +6,7 @@ using namespace std;
 
 #define INF 9999999
 
-// number of vertices in grapj
+// number of vertices in graph
 #define V 5
 
 // create a 2d array of size 5x5

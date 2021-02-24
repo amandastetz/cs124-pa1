@@ -15,6 +15,21 @@ double randNum() {
   return double(rand()) / (double(RAND_MAX) + 1.0);
 }
 
+// A utility function to find the vertex with  
+// minimum key value, from the set of vertices  
+// not yet included in MST  
+int minKey(int key[], bool mstSet[], int n)  
+{  
+    // Initialize min value  
+    int min = INT_MAX, min_index;  
+  
+    for (int v = 0; v < n; v++)  
+        if (mstSet[v] == false && key[v] < min)  
+            min = key[v], min_index = v;  
+  
+    return min_index;  
+}  
+
 int main(int argc, char* argv[]) {
 
     cout << "There are " << argc 
@@ -221,60 +236,58 @@ int main(int argc, char* argv[]) {
     }
     else {cout << "Incorrect number of dimensions inputted!\n" << endl;}
 
+    ///////////////////////////////////
+    // G4G Prim's algorithm
+    ///////////////////////////////////
 
-     // selected will become true otherwise false
-    int selected[V];
-
-  // set selected false initially
-  memset(selected, false, sizeof(selected));
-
-  // set number of edge to 0
-  int no_edge = 0;
-
-  // the number of egde in minimum spanning tree will be
-  // always less than (V -1), where V is number of vertices in
-  //graph
-
-  // choose 0th vertex and make it true
-  selected[0] = true;
-
-  int x;  //  row number
-  int y;  //  col number
-
-  // print for edge and weight
-  cout << "Edge"
-     << " : "
-     << "Weight";
-  cout << endl;
-
-  while (no_edge < V - 1) {
-    //For every vertex in the set S, find the all adjacent vertices
-    // , calculate the distance from the vertex selected at step 1.
-    // if the vertex is already in the set S, discard it otherwise
-    //choose another vertex nearest to selected vertex  at step 1.
-
-    int min = INF;
-    x = 0;
-    y = 0;
-
-    for (int i = 0; i < V; i++) {
-      if (selected[i]) {
-        for (int j = 0; j < V; j++) {
-          if (!selected[j] && adjMatrix[i][j]) {  // not in selected and there is an edge
-            if (min > adjMatrix[i][j]) {
-              min = adjMatrix[i][j];
-              x = i;
-              y = j;
+    // Array to store constructed MST  
+    int parent[n];  
+      
+    // Key values used to pick minimum weight edge in cut  
+    int key[n];  
+      
+    // To represent set of vertices included in MST  
+    bool mstSet[n];  
+  
+    // Initialize all keys as INFINITE  
+    for (int i = 0; i < n; i++)  
+        key[i] = INT_MAX, mstSet[i] = false;  
+  
+    // Always include first 1st vertex in MST.  
+    // Make key 0 so that this vertex is picked as first vertex.  
+    key[0] = 0;  
+    parent[0] = -1; // First node is always root of MST  
+  
+    // The MST will have n vertices  
+    for (int count = 0; count < n - 1; count++) 
+    {  
+        // Pick the minimum key vertex from the  
+        // set of vertices not yet included in MST  
+        int u = minKey(key, mstSet, n);  
+  
+        // Add the picked vertex to the MST Set  
+        mstSet[u] = true;  
+  
+        // Update key value and parent index of  
+        // the adjacent vertices of the picked vertex.  
+        // Consider only those vertices which are not  
+        // yet included in MST  
+        for (int v = 0; v < n; v++)  
+  
+            // graph[u][v] is non zero only for adjacent vertices of m  
+            // mstSet[v] is false for vertices not yet included in MST  
+            // Update the key only if graph[u][v] is smaller than key[v]  
+            if (adjMatrix[u][v] && mstSet[v] == false && adjMatrix[u][v] < key[v])  {
+                parent[v] = u, key[v] = adjMatrix[u][v];  
             }
-          }
-        }
-      }
-    }
-    cout << x << " - " << y << " :  " << adjMatrix[x][y];
-    cout << endl;
-    selected[y] = true;
-    no_edge++;
-  }
+                
+    }  
+  
+    // print the constructed MST  
+    cout<<"Edge \tWeight\n";  
+    for (int i = 1; i < n; i++)  
+        cout<<parent[i]<<" - "<<i<<" \t"<<adjMatrix[i][parent[i]]<<" \n"; 
+
 
     return 0;
 }

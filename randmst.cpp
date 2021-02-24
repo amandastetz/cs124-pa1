@@ -291,12 +291,16 @@ int main(int argc, char* argv[]) {
             }
                 
     }  
-  
+    double weight = 0;
     // print the constructed MST  
     cout<<"Edge \tWeight\n";   
     for (int i = 1; i < n; i++)  {
         cout<<parent[i]<<" - "<<i<<" \t"<<adjMatrix[i][parent[i]]<<" \n"; 
     }
+    for (int i = 1; i < n; i++)  {
+        weight = adjMatrix[i][parent[i]] + weight;
+    }
+    cout << weight << endl;
     cout << " Key :" << endl;
     for (int i = 1; i < n; i++)  {
         cout<<key[i] << " ";

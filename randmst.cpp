@@ -21,10 +21,10 @@ return double(rand()) / (double(RAND_MAX) + 1.0);
 // A utility function to find the vertex with  
 // minimum key value, from the set of vertices  
 // not yet included in MST  
-int minKey(double key[], bool mstSet[], int n)  
+int minKey(double key[], bool mstSet[], int n) 
 {  
     // Initialize min value  
-    int min = INT_MAX, min_index;  
+    double min = INT_MAX, min_index;  
   
     for (int v = 0; v < n; v++)  
         if (mstSet[v] == false && key[v] < min)  
@@ -269,6 +269,10 @@ int main(int argc, char* argv[]) {
         // Pick the minimum key vertex from the  
         // set of vertices not yet included in MST  
         int u = minKey(key, mstSet, n);  
+        cout<<u<< endl;
+
+        for (int i = 0; i < n; i++) 
+        cout<<key[i]<< endl;
   
         // Add the picked vertex to the MST Set  
         mstSet[u] = true;  
@@ -289,7 +293,7 @@ int main(int argc, char* argv[]) {
     }  
   
     // print the constructed MST  
-    cout<<"Edge \tWeight\n";  
+    cout<<"Edge \tWeight\n";   
     for (int i = 1; i < n; i++)  {
         cout<<parent[i]<<" - "<<i<<" \t"<<adjMatrix[i][parent[i]]<<" \n"; 
     }

@@ -87,124 +87,126 @@ int main(int argc, char* argv[]) {
     std::vector<edge*> edges;
 
     // Random number generator
+    // To generate a random number do dist(engine)
     std::random_device rd;
     std::mt19937 engine(rd());
     std::uniform_real_distribution<double> dist(0.0, 1.0);
 
-    // to generate a random number do dist(engine)
-
-    // Dimension 0
-    // for(i = 0; i<n; i++) {
-        // vertices[i] = dist(engine);
-    // }
 
     if (dim == 0) {
-        for (int i = 0; i < n; i++) {
-                for (int j = i+1; j < n; j++) {
-                    double num = dist(engine);
-                    if (limit(num)) {
-                        edge* e = new edge;
-                        e -> source = i;
-                        e -> dest = j;
-                        e -> weight = num;
+        for (int k = 0; k<trials; k++) {
+            for (int i = 0; i < n; i++) {
+                    for (int j = i+1; j < n; j++) {
+                        double num = dist(engine);
+                        if (limit(num)) {
+                            edge* e = new edge;
+                            e -> source = i;
+                            e -> dest = j;
+                            e -> weight = num;
 
-                        edges.push_back(e);
+                            edges.push_back(e);
+                        }
                     }
                 }
-            }
+        }
     }
     else if (dim == 2) {
+            for (int k = 0; k<trials; k++) {
+            double dim2coords[n][2];
+                for (int i=0; i < n; i++) {
+                    dim2coords[i][0] = dist(engine);
+                    dim2coords[i][1] = dist(engine);
+                }
 
-        double dim2coords[n][2];
-            for (int i=0; i < n; i++) {
-                dim2coords[i][0] = dist(engine);
-                dim2coords[i][1] = dist(engine);
-            }
+            for (int i = 0; i < n; i++) {
+                    for (int j = i+1; j < n; j++) {
 
-        for (int i = 0; i < n; i++) {
-                for (int j = i+1; j < n; j++) {
+                        double sqdist = pow((dim2coords[i][0] - dim2coords[j][0]), 2) + 
+                                        pow((dim2coords[i][1] - dim2coords[j][1]), 2);
+                        double num = sqrt(sqdist);
 
-                    double sqdist = pow((dim2coords[i][0] - dim2coords[j][0]), 2) + 
-                                    pow((dim2coords[i][1] - dim2coords[j][1]), 2);
-                    double num = sqrt(sqdist);
+                        if (limit(num)) {
+                            edge* e = new edge;
+                            e -> source = i;
+                            e -> dest = j;
+                            e -> weight = num;
 
-                    if (limit(num)) {
-                        edge* e = new edge;
-                        e -> source = i;
-                        e -> dest = j;
-                        e -> weight = num;
-
-                        edges.push_back(e);
+                            edges.push_back(e);
+                        }
                     }
                 }
-            }
+        }
     }
     else if (dim == 3) {
+        for (int k = 0; k<trials; k++) {
+            double dim3coords[n][3];
+                for (int i=0; i < n; i++) {
+                    dim3coords[i][0] = dist(engine);
+                    dim3coords[i][1] = dist(engine);
+                    dim3coords[i][2] = dist(engine);
+                }
 
-        double dim3coords[n][3];
-            for (int i=0; i < n; i++) {
-                dim3coords[i][0] = dist(engine);
-                dim3coords[i][1] = dist(engine);
-                dim3coords[i][2] = dist(engine);
-            }
+            for (int i = 0; i < n; i++) {
+                    for (int j = i+1; j < n; j++) {
 
-        for (int i = 0; i < n; i++) {
-                for (int j = i+1; j < n; j++) {
+                        double sqdist = pow((dim3coords[i][0] - dim3coords[j][0]), 2) + 
+                                        pow((dim3coords[i][1] - dim3coords[j][1]), 2) +
+                                        pow((dim3coords[i][2] - dim3coords[j][2]), 2);
+                        double num = sqrt(sqdist);
 
-                    double sqdist = pow((dim3coords[i][0] - dim3coords[j][0]), 2) + 
-                                    pow((dim3coords[i][1] - dim3coords[j][1]), 2) +
-                                    pow((dim3coords[i][2] - dim3coords[j][2]), 2);
-                    double num = sqrt(sqdist);
+                        if (limit(num)) {
+                            edge* e = new edge;
+                            e -> source = i;
+                            e -> dest = j;
+                            e -> weight = num;
 
-                    if (limit(num)) {
-                        edge* e = new edge;
-                        e -> source = i;
-                        e -> dest = j;
-                        e -> weight = num;
-
-                        edges.push_back(e);
+                            edges.push_back(e);
+                        }
                     }
                 }
-            }
+        }
     }
     else if (dim == 4) {
+        for (int k = 0; k<trials; k++) {
+            double dim4coords[n][4];
+                for (int i=0; i < n; i++) {
+                    dim4coords[i][0] = dist(engine);
+                    dim4coords[i][1] = dist(engine);
+                    dim4coords[i][2] = dist(engine);
+                    dim4coords[i][3] = dist(engine);
+                }
 
-        double dim4coords[n][4];
-            for (int i=0; i < n; i++) {
-                dim4coords[i][0] = dist(engine);
-                dim4coords[i][1] = dist(engine);
-                dim4coords[i][2] = dist(engine);
-                dim4coords[i][3] = dist(engine);
-            }
+            for (int i = 0; i < n; i++) {
+                    for (int j = i+1; j < n; j++) {
 
-        for (int i = 0; i < n; i++) {
-                for (int j = i+1; j < n; j++) {
+                        double sqdist = pow((dim4coords[i][0] - dim4coords[j][0]), 2) + 
+                                        pow((dim4coords[i][1] - dim4coords[j][1]), 2) +
+                                        pow((dim4coords[i][2] - dim4coords[j][2]), 2) +
+                                        pow((dim4coords[i][3] - dim4coords[j][3]), 2);
+                        double num = sqrt(sqdist);
 
-                    double sqdist = pow((dim4coords[i][0] - dim4coords[j][0]), 2) + 
-                                    pow((dim4coords[i][1] - dim4coords[j][1]), 2) +
-                                    pow((dim4coords[i][2] - dim4coords[j][2]), 2) +
-                                    pow((dim4coords[i][3] - dim4coords[j][3]), 2);
-                    double num = sqrt(sqdist);
+                        if (limit(num)) {
+                            edge* e = new edge;
+                            e -> source = i;
+                            e -> dest = j;
+                            e -> weight = num;
 
-                    if (limit(num)) {
-                        edge* e = new edge;
-                        e -> source = i;
-                        e -> dest = j;
-                        e -> weight = num;
-
-                        edges.push_back(e);
+                            edges.push_back(e);
+                        }
                     }
                 }
-            }
+        }
     }
     else {cout << "Incorrect number of dimensions input!\n" << endl;}
     
-    
     cout << "Edges size: " << edges.size() << endl;
+    
     for(int i=0; i<edges.size(); i++) {
         cout <<"Source:  " << edges[i] -> source << endl;
         cout <<"Dest: " << edges[i] -> dest << endl; 
         cout <<"Weight: " << edges[i] -> weight << endl; };
+    
+   
 
  
     // Create V subsets with single elements

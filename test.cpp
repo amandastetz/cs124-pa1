@@ -1,77 +1,37 @@
-// Prim's Algorithm in C++
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 
-#include <cstring>
-#include <iostream>
-using namespace std;
+double values[] = { 88, 56, 100, 2, 25 };
 
-#define INF 9999999
+int compare (const void * a, const void * b)
+{
+    if (*(double*)a > *(double*)b) return 1;
+    else if (*(double*)a < *(double*)b) return -1;
+    else return 0;
+}
 
-// number of vertices in graph
-#define V 5
+int main()
+{
+    int n;
 
-// create a 2d array of size 5x5
-//for adjacency matrix to represent graph
-
-int G[V][V] = {
-  {0, 9, 75, 0, 0},
-  {9, 0, 95, 19, 42}};
-
-int main() {
-  int no_edge;  // number of edge
-
-  // selected will become true otherwise false
-  int selected[V];
-
-  // set selected false initially
-  memset(selected, false, sizeof(selected));
-
-  // set number of edge to 0
-  no_edge = 0;
-
-  // the number of egde in minimum spanning tree will be
-  // always less than (V -1), where V is number of vertices in
-  //graph
-
-  // choose 0th vertex and make it true
-  selected[0] = true;
-
-  int x;  //  row number
-  int y;  //  col number
-
-  // print for edge and weight
-  cout << "Edge"
-     << " : "
-     << "Weight";
-  cout << endl;
-
-  while (no_edge < V - 1) {
-    //For every vertex in the set S, find the all adjacent vertices
-    // , calculate the distance from the vertex selected at step 1.
-    // if the vertex is already in the set S, discard it otherwise
-    //choose another vertex nearest to selected vertex  at step 1.
-
-    int min = INF;
-    x = 0;
-    y = 0;
-
-    for (int i = 0; i < V; i++) {
-      if (selected[i]) {
-        for (int j = 0; j < V; j++) {
-          if (!selected[j] && G[i][j]) {  // not in selected and there is an edge
-            if (min > G[i][j]) {
-              min = G[i][j];
-              x = i;
-              y = j;
-            }
-          }
-        }
-      }
+    printf("Before sorting the list is: \n");
+    for( n = 0 ; n < 5; n++ )
+    {
+        printf("%.2f ", values[n]);
     }
-    cout << x << " - " << y << " :  " << G[x][y];
-    cout << endl;
-    selected[y] = true;
-    no_edge++;
-  }
 
-  return 0;
+    printf("\n\n");
+
+    qsort(values, 5, sizeof(double), compare);
+
+    printf("\nAfter sorting the list is: \n");
+    for( n = 0 ; n < 5; n++ )
+    {
+        printf("%.2f ", values[n]);
+    }
+
+    printf("\n\n");
+
+    return(0);
 }

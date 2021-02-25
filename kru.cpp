@@ -5,6 +5,7 @@
 #include <utility> 
 #include <sstream>
 #include <cmath>
+#include <stdio.h>
 #include <random>
 
 using namespace std; 
@@ -224,6 +225,8 @@ int main(int argc, char* argv[]) {
         // sets[v].parent = v;
         // sets[v].rank = 0;
     // }
+
+
 
 
     //////////////////////////////////////////////////////////////

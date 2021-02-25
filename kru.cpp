@@ -114,19 +114,18 @@ int main(int argc, char* argv[]) {
             }
     }
     else if (dim == 2) {
+
+        double dim2coords[n][2];
+            for (int i=0; i < n; i++) {
+                dim2coords[i][0] = dist(engine);
+                dim2coords[i][1] = dist(engine);
+            }
+
         for (int i = 0; i < n; i++) {
                 for (int j = i+1; j < n; j++) {
 
-                    double dim2coords[1][2];
-                    double dim2coords2[1][2];
-                    
-                    dim2coords[0][0] = dist(engine);
-                    dim2coords[0][1] = dist(engine);
-                    dim2coords2[0][0] = dist(engine);
-                    dim2coords2[0][1] = dist(engine);
-
-                    double sqdist = pow((dim2coords[0][0] - dim2coords2[0][0]), 2) + 
-                                        pow((dim2coords[0][1] - dim2coords2[0][1]), 2);
+                    double sqdist = pow((dim2coords[i][0] - dim2coords[j][0]), 2) + 
+                                    pow((dim2coords[i][1] - dim2coords[j][1]), 2);
                     double num = sqrt(sqdist);
 
                     if (limit(num)) {
@@ -141,8 +140,62 @@ int main(int argc, char* argv[]) {
             }
     }
     else if (dim == 3) {
+
+        double dim3coords[n][3];
+            for (int i=0; i < n; i++) {
+                dim3coords[i][0] = dist(engine);
+                dim3coords[i][1] = dist(engine);
+                dim3coords[i][2] = dist(engine);
+            }
+
+        for (int i = 0; i < n; i++) {
+                for (int j = i+1; j < n; j++) {
+
+                    double sqdist = pow((dim3coords[i][0] - dim3coords[j][0]), 2) + 
+                                    pow((dim3coords[i][1] - dim3coords[j][1]), 2) +
+                                    pow((dim3coords[i][2] - dim3coords[j][2]), 2);
+                    double num = sqrt(sqdist);
+
+                    if (limit(num)) {
+                        edge* e = new edge;
+                        e -> source = i;
+                        e -> dest = j;
+                        e -> weight = num;
+
+                        edges.push_back(e);
+                    }
+                }
+            }
     }
     else if (dim == 4) {
+
+        double dim4coords[n][4];
+            for (int i=0; i < n; i++) {
+                dim4coords[i][0] = dist(engine);
+                dim4coords[i][1] = dist(engine);
+                dim4coords[i][2] = dist(engine);
+                dim4coords[i][3] = dist(engine);
+            }
+
+        for (int i = 0; i < n; i++) {
+                for (int j = i+1; j < n; j++) {
+
+                    double sqdist = pow((dim4coords[i][0] - dim4coords[j][0]), 2) + 
+                                    pow((dim4coords[i][1] - dim4coords[j][1]), 2) +
+                                    pow((dim4coords[i][2] - dim4coords[j][2]), 2) +
+                                    pow((dim4coords[i][3] - dim4coords[j][3]), 2);
+                    double num = sqrt(sqdist);
+
+                    if (limit(num)) {
+                        edge* e = new edge;
+                        e -> source = i;
+                        e -> dest = j;
+                        e -> weight = num;
+
+                        edges.push_back(e);
+                    }
+                }
+            }
     }
     else {cout << "Incorrect number of dimensions input!\n" << endl;}
     

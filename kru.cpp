@@ -108,6 +108,9 @@ int main(int argc, char* argv[]) {
                         }
                     }
                 }
+
+                cout << "Edges size: " << edges.size() << endl;
+                edges.clear();
         }
     }
     else if (dim == 2) {

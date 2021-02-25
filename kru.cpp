@@ -138,6 +138,8 @@ int main(int argc, char* argv[]) {
                         }
                     }
                 }
+
+                edges.clear();
         }
     }
     else if (dim == 3) {
@@ -167,6 +169,8 @@ int main(int argc, char* argv[]) {
                         }
                     }
                 }
+
+                edges.clear();
         }
     }
     else if (dim == 4) {
@@ -199,6 +203,8 @@ int main(int argc, char* argv[]) {
                     }
                 }
         }
+
+        edges.clear();
     }
     else {cout << "Incorrect number of dimensions input!\n" << endl;}
     

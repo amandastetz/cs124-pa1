@@ -6,6 +6,7 @@
 #include <sstream>
 #include <cmath>
 #include <random>
+#include <algorithm>
 
 using namespace std; 
 
@@ -29,6 +30,10 @@ bool limit(double num) {
     }
     return false;
 };
+
+bool Compare(edge *a, edge *b){
+	return a -> weight < b -> weight;
+}
 
 // Vector of sets
 vector<set> sets;
@@ -110,6 +115,17 @@ int main(int argc, char* argv[]) {
                 }
 
                 cout << "Edges size: " << edges.size() << endl;
+
+                sort(edges.begin(), edges.end(), Compare);
+
+                cout << "Vector After Sort:\n" << endl;
+
+                for(int i=0; i<edges.size(); i++) {
+                    cout <<"Source:  " << edges[i] -> source << endl;
+                    cout <<"Dest: " << edges[i] -> dest << endl; 
+                    cout <<"Weight: " << edges[i] -> weight << endl; 
+                };
+
                 edges.clear();
         }
     }
@@ -210,20 +226,15 @@ int main(int argc, char* argv[]) {
     
     cout << "Edges size: " << edges.size() << endl;
     
-    for(int i=0; i<edges.size(); i++) {
-        cout <<"Source:  " << edges[i] -> source << endl;
-        cout <<"Dest: " << edges[i] -> dest << endl; 
-        cout <<"Weight: " << edges[i] -> weight << endl; };
     
-   
+    // Sort edges
+   // sort(edges.begin(), edges.end(), [](edge a, edge b){
+	 //   return a.weight < b.weight;	
+    // });
 
- 
-    // Create V subsets with single elements
-    // for (int v = 0; v < n; v++) 
-    // {
-        // sets[v].parent = v;
-        // sets[v].rank = 0;
-    // }
+
+
+    // Implement Kruskal's
 
 
     //////////////////////////////////////////////////////////////

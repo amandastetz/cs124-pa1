@@ -47,26 +47,25 @@ int find(int x) {
     return sets[x].parent;
 };
 
-//void union(int x, y) {
-    // int x = find(x);
-    // int y = find(y);
+void unionrank (int x, int y) {
+    int xroot = find(x);
+    int yroot = find(y);
 
-    // if (x == y) {
-        // return x
-    // }
+    if (sets[xroot].rank < sets[yroot].rank) {
+        sets[xroot].parent = yroot;
+    }
+    else if (sets[xroot].rank > sets[yroot].rank) {
+        sets[yroot].parent = xroot;
+    }
+    else {
+        sets[yroot].parent = xroot;
+        sets[xroot].rank++;
+    }
 
-// };
+};
+
 
 int main(int argc, char* argv[]) {
-    
-    cout << "There are " << argc 
-         << " argument(s) entered:" << "\n"; 
-
-    //for (int i = 0; i < argc; ++i) 
-        //cout << i << ":" << argv[i] << "\n"; 
-
-    // put something like ./randmst 12 23 34
-    // need to have something after ./randmst
     
     // number of vertices
     int n = atoi(argv[2]);
@@ -116,6 +115,13 @@ int main(int argc, char* argv[]) {
     cout << "Edges size: " << edges.size() << endl;
 
 
+ 
+    // Create V subsets with single elements
+    // for (int v = 0; v < n; v++) 
+    // {
+        // sets[v].parent = v;
+        // sets[v].rank = 0;
+    // }
 
 
     //////////////////////////////////////////////////////////////

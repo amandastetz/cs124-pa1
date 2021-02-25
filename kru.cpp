@@ -86,7 +86,7 @@ int main(int argc, char* argv[]) {
 
     std::vector<edge*> edges;
 
-    // Random numbe generator
+    // Random number generator
     std::random_device rd;
     std::mt19937 engine(rd());
     std::uniform_real_distribution<double> dist(0.0, 1.0);
@@ -98,22 +98,60 @@ int main(int argc, char* argv[]) {
         // vertices[i] = dist(engine);
     // }
 
-    for (int i = 0; i < n; i++) {
-        for (int j = i+1; j < n; j++) {
-            double num = dist(engine);
-            if (limit(num)) {
-                edge* e = new edge;
-                e -> source = i;
-                e -> dest = j;
-                e -> weight = num;
+    if (dim == 0) {
+        for (int i = 0; i < n; i++) {
+                for (int j = i+1; j < n; j++) {
+                    double num = dist(engine);
+                    if (limit(num)) {
+                        edge* e = new edge;
+                        e -> source = i;
+                        e -> dest = j;
+                        e -> weight = num;
 
-                edges.push_back(e);
+                        edges.push_back(e);
+                    }
+                }
             }
-        }
     }
+    else if (dim == 2) {
+        for (int i = 0; i < n; i++) {
+                for (int j = i+1; j < n; j++) {
 
+                    double dim2coords[1][2];
+                    double dim2coords2[1][2];
+                    
+                    dim2coords[0][0] = dist(engine);
+                    dim2coords[0][1] = dist(engine);
+                    dim2coords2[0][0] = dist(engine);
+                    dim2coords2[0][1] = dist(engine);
+
+                    double sqdist = pow((dim2coords[0][0] - dim2coords2[0][0]), 2) + 
+                                        pow((dim2coords[0][1] - dim2coords2[0][1]), 2);
+                    double num = sqrt(sqdist);
+
+                    if (limit(num)) {
+                        edge* e = new edge;
+                        e -> source = i;
+                        e -> dest = j;
+                        e -> weight = num;
+
+                        edges.push_back(e);
+                    }
+                }
+            }
+    }
+    else if (dim == 3) {
+    }
+    else if (dim == 4) {
+    }
+    else {cout << "Incorrect number of dimensions input!\n" << endl;}
+    
+    
     cout << "Edges size: " << edges.size() << endl;
-
+    for(int i=0; i<edges.size(); i++) {
+        cout <<"Source:  " << edges[i] -> source << endl;
+        cout <<"Dest: " << edges[i] -> dest << endl; 
+        cout <<"Weight: " << edges[i] -> weight << endl; };
 
  
     // Create V subsets with single elements

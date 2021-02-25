@@ -117,6 +117,7 @@ int main(int argc, char* argv[]) {
 
                 cout << "Edges size: " << edges.size() << endl;
 
+                // Step 1: Sort edges
                 sort(edges.begin(), edges.end(), Compare);
 
                 cout << "Vector After Sort:\n" << endl;
@@ -126,6 +127,20 @@ int main(int argc, char* argv[]) {
                     cout <<"Dest: " << edges[i] -> dest << endl; 
                     cout <<"Weight: " << edges[i] -> weight << endl; 
                 };
+
+                // Step 2: Implement Kruskal's
+                for (int i = 0; i < n; i++) {
+                    makeset(i);
+                }
+
+                for (int u = 0; u < n; u++) {
+                    for (int v = u; v < n; v++) {
+                        if(find(u) != find(v)) {
+                            // sets[]; add the edge to sets
+                            unionrank(find(u), find(v));
+                        }
+                    }
+                }
 
                 edges.clear();
         }

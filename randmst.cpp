@@ -5,17 +5,21 @@
 #include <utility> 
 #include <sstream>
 #include <cmath>
+#include <random>
 
 using namespace std; 
 #define INF 9999999
+
+
 
 // #define V n
 
 // Random number generator
 // Will produce n random real numbers on interval [0,1]
 
+
 double randNum() {
-return double(rand()) / (double(RAND_MAX) + 1.0);
+    return double(rand()) / (double(RAND_MAX) + 1.0);
 }
 
 // A utility function to find the vertex with  
@@ -32,6 +36,10 @@ int minKey(double key[], bool mstSet[], int n)
   
     return min_index;  
 }  
+
+
+
+
 
 int main(int argc, char* argv[]) {
 
@@ -53,6 +61,8 @@ int main(int argc, char* argv[]) {
     // number of dimensions - 0, 2, 3, 4
     int dim = atoi(argv[4]);
 
+
+    //////////////////////////////////////////////////////////////
     // Create adjacency matrix of size n x n
     double adjMatrix[n][n];
 

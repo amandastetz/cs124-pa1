@@ -7,12 +7,22 @@
 #include <cmath>
 #include <random>
 
+using namespace std; 
+
+// Structure to represent weighted edges
 struct edge {
     int source;
     int dest;
     double weight;
 };
 
+// Structure to represent sets
+struct set {
+    int parent;
+    int rank;
+};
+
+// Limit to decide whether to include edges
 bool limit(double num) {
     if (num != 0 && num < pow(2, -(0.6 * log(num)))) {
         return true;
@@ -20,13 +30,8 @@ bool limit(double num) {
     return false;
 };
 
-
-struct set {
-    int parent;
-    int rank;
-};
-
-std::vector<set> sets;
+// Vector of sets
+vector<set> sets;
 
 void makeset(int x) {
     set s;
@@ -35,7 +40,7 @@ void makeset(int x) {
     sets[x] = s;
 };
 
-void find(int x) {
+int find(int x) {
     if(sets[x].parent != x) {
         sets[x].parent = find(sets[x].parent);
     }

@@ -101,6 +101,9 @@ int main(int argc, char* argv[]) {
 
     if (dim == 0) {
         for (int k = 0; k<trials; k++) {
+
+            double mst_weight = 0.0;
+
             for (int i = 0; i < n; i++) {
                     for (int j = i+1; j < n; j++) {
                         double num = dist(engine);
@@ -137,6 +140,7 @@ int main(int argc, char* argv[]) {
                     for (int v = u; v < n; v++) {
                         if(find(u) != find(v)) {
                             // sets[]; add the edge to sets
+                            mst_weight += edges[v] -> weight;
                             unionrank(find(u), find(v));
                         }
                     }

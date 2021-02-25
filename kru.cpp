@@ -5,6 +5,7 @@
 #include <utility> 
 #include <sstream>
 #include <cmath>
+#include <stdio.h>
 #include <random>
 #include <algorithm>
 
@@ -235,6 +236,8 @@ int main(int argc, char* argv[]) {
 
 
     // Implement Kruskal's
+
+
 
 
     //////////////////////////////////////////////////////////////

@@ -1,77 +1,32 @@
-// Prim's Algorithm in C++
+// sort algorithm example
+#include <iostream>     // std::cout
+#include <algorithm>    // std::sort
+#include <vector>       // std::vector
 
-#include <cstring>
-#include <iostream>
-using namespace std;
+bool myfunction (int i,int j) { return (i<j); }
 
-#define INF 9999999
+struct myclass {
+  bool operator() (int i,int j) { return (i<j);}
+} myobject;
 
-// number of vertices in graph
-#define V 5
+int main () {
+  int myints[] = {32,71,12,45,26,80,53,33};
+  std::vector<int> myvector (myints, myints+8);               // 32 71 12 45 26 80 53 33
 
-// create a 2d array of size 5x5
-//for adjacency matrix to represent graph
+  // using default comparison (operator <):
+  std::sort (myvector.begin(), myvector.begin()+4);           //(12 32 45 71)26 80 53 33
 
-int G[V][V] = {
-  {0, 9, 75, 0, 0},
-  {9, 0, 95, 19, 42}};
+  // using function as comp
+  std::sort (myvector.begin()+4, myvector.end(), myfunction); // 12 32 45 71(26 33 53 80)
 
-int main() {
-  int no_edge;  // number of edge
+  // using object as comp
+  std::sort (myvector.begin(), myvector.end(), myobject);     //(12 26 32 33 45 53 71 80)
 
-  // selected will become true otherwise false
-  int selected[V];
-
-  // set selected false initially
-  memset(selected, false, sizeof(selected));
-
-  // set number of edge to 0
-  no_edge = 0;
-
-  // the number of egde in minimum spanning tree will be
-  // always less than (V -1), where V is number of vertices in
-  //graph
-
-  // choose 0th vertex and make it true
-  selected[0] = true;
-
-  int x;  //  row number
-  int y;  //  col number
-
-  // print for edge and weight
-  cout << "Edge"
-     << " : "
-     << "Weight";
-  cout << endl;
-
-  while (no_edge < V - 1) {
-    //For every vertex in the set S, find the all adjacent vertices
-    // , calculate the distance from the vertex selected at step 1.
-    // if the vertex is already in the set S, discard it otherwise
-    //choose another vertex nearest to selected vertex  at step 1.
-
-    int min = INF;
-    x = 0;
-    y = 0;
-
-    for (int i = 0; i < V; i++) {
-      if (selected[i]) {
-        for (int j = 0; j < V; j++) {
-          if (!selected[j] && G[i][j]) {  // not in selected and there is an edge
-            if (min > G[i][j]) {
-              min = G[i][j];
-              x = i;
-              y = j;
-            }
-          }
-        }
-      }
-    }
-    cout << x << " - " << y << " :  " << G[x][y];
-    cout << endl;
-    selected[y] = true;
-    no_edge++;
-  }
+  // print out content:
+  std::cout << "myvector contains:";
+  for (std::vector<int>::iterator it=myvector.begin(); it!=myvector.end(); ++it)
+    std::cout << ' ' << *it;
+  std::cout << '\n';
 
   return 0;
 }

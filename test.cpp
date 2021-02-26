@@ -16,8 +16,6 @@ using namespace std;
 
 class Graph {
   private:
-  vector<pair<double, edge> > G;  // graph
-  vector<pair<double, edge> > T;  // mst
   int *parent;
   int V;  // number of vertices/nodes in graph
   public:
@@ -27,7 +25,8 @@ class Graph {
   void union_set(int u, int v);
   void kruskal();
   void print();
-  void clear();
+  vector<pair<double, edge> > G;  // graph
+  vector<pair<double, edge> > T;  // mst
 };
 
 Graph::Graph(int V) {
@@ -40,19 +39,21 @@ Graph::Graph(int V) {
 
   G.clear();
   T.clear();
-}
 
-void Graph::clear() {
-  G.clear();
-  T.clear();
 }
 
 void Graph::add_edge(int u, int v, double w) {
   G.push_back(make_pair(w, edge(u, v)));
+        for (int i = 0; i < G.size(); i++) 
+        cout << G[i].second.first << " - " << G[i].second.second << " : "
+        << G[i].first;
+        cout << endl;
 }
 
 int Graph::find_set(int i) {
   // If i is the parent of itself
+  cout << "The i: " << i << endl;
+  cout << "Parent: " << parent[i] << endl;
   if (i == parent[i])
     return i;
   else
@@ -72,6 +73,8 @@ void Graph::kruskal() {
   for (i = 0; i < G.size(); i++) {
     uRep = find_set(G[i].second.first);
     vRep = find_set(G[i].second.second);
+    cout << uRep << endl;
+    cout << vRep << endl;
     if (uRep != vRep) {
       T.push_back(G[i]);  // add to tree
       union_set(uRep, vRep);
@@ -84,9 +87,9 @@ void Graph::print() {
   // cout << "Edge :"
   //    << " Weight" << endl;
   for (int i = 0; i < T.size(); i++) {
-    // cout << T[i].second.first << " - " << T[i].second.second << " : "
-    //    << T[i].first;
-    // cout << endl;
+    cout << T[i].second.first << " - " << T[i].second.second << " : "
+       << T[i].first;
+    cout << endl;
     minimumCost += T[i].first;
   }
   cout << "Minimum Cost: " << minimumCost << endl;
@@ -119,9 +122,12 @@ int main(int argc, char* argv[]) {
 
   if (dim == 0) {
     for (int k = 0; k<trials; k++) {
+      g.G.clear();
+      g.T.clear();
       for (int i = 0; i < n; i++) {
         for (int j = i+1; j < n; j++) {
             double num = dist(engine);
+            cout << num << endl;
             if (limit(num)) {
               g.add_edge(i, j, num);
             }
@@ -129,7 +135,6 @@ int main(int argc, char* argv[]) {
       }
       g.kruskal();
       g.print();
-      g.clear();
     }
   }
   else if (dim == 2) {

@@ -126,7 +126,7 @@ int main(int argc, char* argv[]) {
                 cout << "Vector After Sort:\n" << endl;
 
                 for(int i=0; i<edges.size(); i++) {
-                    cout <<"Source:  " << edges[i] -> source << endl;
+                    cout <<"Source:  " << edges[i] -> source << endl;
                     cout <<"Dest: " << edges[i] -> dest << endl; 
                     cout <<"Weight: " << edges[i] -> weight << endl; 
                 };

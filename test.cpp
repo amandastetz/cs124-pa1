@@ -21,7 +21,7 @@ class Graph {
   Graph(int V);
   void addEdge(int u, int v, double w);
   void unionTake(int u, int v);
-  void kruskal();
+  void kruskalAlg();
   int setSearch(int i);
   double calcWeight();
   vector<pair<double, edge> > G;  // Complete Graph
@@ -45,7 +45,7 @@ void Graph::unionTake(int u, int v) {
   parent[u] = parent[v];
 }
 
-void Graph::kruskal() {
+void Graph::kruskalAlg() {
   int i, comp1, comp2;
 
   // Sort graph in order from least to greatest edge weight
@@ -119,7 +119,7 @@ int main(int argc, char* argv[]) {
               }
           }
         }
-      g.kruskal();
+      g.kruskalAlg();
       }
       double weight = g.calcWeight();
       arr.push_back(weight);
@@ -145,7 +145,7 @@ int main(int argc, char* argv[]) {
             }
         }
       }
-    g.kruskal();
+    g.kruskalAlg();
     }
     double weight = g.calcWeight();
     arr.push_back(weight);
@@ -173,7 +173,7 @@ int main(int argc, char* argv[]) {
             }
         }
       }
-    g.kruskal();
+    g.kruskalAlg();
     }
     double weight = g.calcWeight();
     arr.push_back(weight);
@@ -203,7 +203,7 @@ int main(int argc, char* argv[]) {
             }
         }
       }
-    g.kruskal();
+    g.kruskalAlg();
   }
     double weight = g.calcWeight();
     arr.push_back(weight);

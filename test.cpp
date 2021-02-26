@@ -1,4 +1,3 @@
-// Kruskal's algorithm in C++
 #include <cstdlib>
 #include <ctime>
 #include <stdlib.h>
@@ -28,6 +27,7 @@ class Graph {
   void union_set(int u, int v);
   void kruskal();
   void print();
+  void clear();
 };
 
 Graph::Graph(int V) {
@@ -38,6 +38,11 @@ Graph::Graph(int V) {
   for (int i = 0; i < V; i++)
     parent[i] = i;
 
+  G.clear();
+  T.clear();
+}
+
+void Graph::clear() {
   G.clear();
   T.clear();
 }
@@ -113,13 +118,18 @@ int main(int argc, char* argv[]) {
   std::uniform_real_distribution<double> dist(0.0, 1.0);
 
   if (dim == 0) {
-    for (int i = 0; i < n; i++) {
-      for (int j = i+1; j < n; j++) {
-          double num = dist(engine);
-          if (limit(num)) {
-            g.add_edge(i, j, num);
-          }
+    for (int k = 0; k<trials; k++) {
+      for (int i = 0; i < n; i++) {
+        for (int j = i+1; j < n; j++) {
+            double num = dist(engine);
+            if (limit(num)) {
+              g.add_edge(i, j, num);
+            }
+        }
       }
+      g.kruskal();
+      g.print();
+      g.clear();
     }
   }
   else if (dim == 2) {
@@ -182,7 +192,6 @@ int main(int argc, char* argv[]) {
   else {cout << "Wrong Input" << endl;};
 
 
-  g.kruskal();
-  g.print();
+
   return 0;
 }

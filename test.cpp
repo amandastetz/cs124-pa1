@@ -37,8 +37,8 @@ Graph::Graph(int V) {
   MST.clear();
 }
 
-void Graph::addEdge(int u, int v, double w) {
-  G.push_back(make_pair(w, edge(u, v)));
+void Graph::addEdge(int u, int v, double d) {
+  G.push_back(make_pair(d, edge(u, v)));
 }
 
 void Graph::unionTake(int u, int v) {
@@ -119,10 +119,10 @@ int main(int argc, char* argv[]) {
               }
           }
         }
-      g.kruskalAlg();
+        g.kruskalAlg();
+        double weight = g.calcWeight();
+        arr.push_back(weight);
       }
-      double weight = g.calcWeight();
-      arr.push_back(weight);
       double sum = accumulate(arr.begin(), arr.end(), 0.0);
       double avg = sum / arr.size();
       cout << avg << " " << n << " " << trials << " " << dim << endl;
@@ -145,10 +145,10 @@ int main(int argc, char* argv[]) {
             }
         }
       }
-    g.kruskalAlg();
+      g.kruskalAlg();
+      double weight = g.calcWeight();
+      arr.push_back(weight);
     }
-    double weight = g.calcWeight();
-    arr.push_back(weight);
     double sum = accumulate(arr.begin(), arr.end(), 0.0);
     double avg = sum / arr.size();
     cout << avg << " " << n << " " << trials << " " << dim << endl;
@@ -173,10 +173,10 @@ int main(int argc, char* argv[]) {
             }
         }
       }
-    g.kruskalAlg();
+      g.kruskalAlg();
+      double weight = g.calcWeight();
+      arr.push_back(weight);
     }
-    double weight = g.calcWeight();
-    arr.push_back(weight);
     double sum = accumulate(arr.begin(), arr.end(), 0.0);
     double avg = sum / arr.size();
     cout << avg << " " << n << " " << trials << " " << dim << endl;
@@ -203,10 +203,10 @@ int main(int argc, char* argv[]) {
             }
         }
       }
-    g.kruskalAlg();
-  }
-    double weight = g.calcWeight();
-    arr.push_back(weight);
+      g.kruskalAlg();
+      double weight = g.calcWeight();
+      arr.push_back(weight);
+    }
     double sum = accumulate(arr.begin(), arr.end(), 0.0);
     double avg = sum / arr.size();
     cout << avg << " " << n << " " << trials << " " << dim << endl;

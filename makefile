@@ -3,3 +3,6 @@ randmst: randmst.cpp
 
 kru: kru.cpp
 	g++ kru.cpp -O3 -o kru
+
+test: test.cpp
+	g++ test.cpp -O3 -o test

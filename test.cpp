@@ -16,19 +16,20 @@ using namespace std;
 #define edge pair<int, int>
 
 class Graph {
-   private:
+  private:
   vector<pair<double, edge> > G;  // graph
   vector<pair<double, edge> > T;  // mst
   int *parent;
   int V;  // number of vertices/nodes in graph
-   public:
+  public:
   Graph(int V);
-  void AddWeightedEdge(int u, int v, double w);
+  void add_edge(int u, int v, double w);
   int find_set(int i);
   void union_set(int u, int v);
   void kruskal();
   void print();
 };
+
 Graph::Graph(int V) {
   parent = new int[V];
 
@@ -40,9 +41,11 @@ Graph::Graph(int V) {
   G.clear();
   T.clear();
 }
-void Graph::AddWeightedEdge(int u, int v, double w) {
+
+void Graph::add_edge(int u, int v, double w) {
   G.push_back(make_pair(w, edge(u, v)));
 }
+
 int Graph::find_set(int i) {
   // If i is the parent of itself
   if (i == parent[i])
@@ -57,6 +60,7 @@ int Graph::find_set(int i) {
 void Graph::union_set(int u, int v) {
   parent[u] = parent[v];
 }
+
 void Graph::kruskal() {
   int i, uRep, vRep;
   sort(G.begin(), G.end());  // increasing weight
@@ -69,6 +73,7 @@ void Graph::kruskal() {
     }
   }
 }
+
 void Graph::print() {
   double minimumCost = 0;
   // cout << "Edge :"
@@ -81,6 +86,7 @@ void Graph::print() {
   }
   cout << "Minimum Cost: " << minimumCost << endl;
 }
+
 // Limit to decide whether to include edges
 bool limit(double num) {
     if (num != 0 && num < pow(2, -(0.6 * log(num)))) {
@@ -111,7 +117,7 @@ int main(int argc, char* argv[]) {
       for (int j = i+1; j < n; j++) {
           double num = dist(engine);
           if (limit(num)) {
-            g.AddWeightedEdge(i, j, num);
+            g.add_edge(i, j, num);
           }
       }
     }
@@ -128,7 +134,7 @@ int main(int argc, char* argv[]) {
                           pow((dim2coords[i][1] - dim2coords[j][1]), 2);
           double num = sqrt(sqdist);
           if (limit(num)) {
-            g.AddWeightedEdge(i, j, num);
+            g.add_edge(i, j, num);
           }
       }
     }
@@ -147,7 +153,7 @@ int main(int argc, char* argv[]) {
                           pow((dim3coords[i][2] - dim3coords[j][2]), 2);
           double num = sqrt(sqdist);
           if (limit(num)) {
-            g.AddWeightedEdge(i, j, num);
+            g.add_edge(i, j, num);
           }
       }
     }
@@ -168,7 +174,7 @@ int main(int argc, char* argv[]) {
                           pow((dim4coords[i][3] - dim4coords[j][3]), 2);
           double num = sqrt(sqdist);
           if (limit(num)) {
-            g.AddWeightedEdge(i, j, num);
+            g.add_edge(i, j, num);
           }
       }
     }

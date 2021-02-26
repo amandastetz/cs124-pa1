@@ -8,91 +8,74 @@
 #include <random>
 #include <algorithm>
 #include <iostream>
+#include <numeric>
 #include <vector>
 
 using namespace std;
-
 #define edge pair<int, int>
 
 class Graph {
-  private:
-  int *parent;
-  int V;  // number of vertices/nodes in graph
   public:
+  int *parent;
+  int V; // Vertices in graph
   Graph(int V);
-  void add_edge(int u, int v, double w);
-  int find_set(int i);
-  void union_set(int u, int v);
+  void addEdge(int u, int v, double w);
+  void unionTake(int u, int v);
   void kruskal();
-  void print();
-  vector<pair<double, edge> > G;  // graph
-  vector<pair<double, edge> > T;  // mst
+  int setSearch(int i);
+  double calcWeight();
+  vector<pair<double, edge> > G;  // Complete Graph
+  vector<pair<double, edge> > MST;  // MST
 };
 
 Graph::Graph(int V) {
   parent = new int[V];
-
-  //i 0 1 2 3 4 5
-  //parent[i] 0 1 2 3 4 5
-  for (int i = 0; i < V; i++)
+  for (int i = 0; i < V; i++){
     parent[i] = i;
-
+  }
   G.clear();
-  T.clear();
-
+  MST.clear();
 }
 
-void Graph::add_edge(int u, int v, double w) {
+void Graph::addEdge(int u, int v, double w) {
   G.push_back(make_pair(w, edge(u, v)));
-        for (int i = 0; i < G.size(); i++) 
-        cout << G[i].second.first << " - " << G[i].second.second << " : "
-        << G[i].first;
-        cout << endl;
 }
 
-int Graph::find_set(int i) {
-  // If i is the parent of itself
-  cout << "The i: " << i << endl;
-  cout << "Parent: " << parent[i] << endl;
-  if (i == parent[i])
-    return i;
-  else
-    // Else if i is not the parent of itself
-    // Then i is not the representative of his set,
-    // so we recursively call Find on its parent
-    return find_set(parent[i]);
-}
-
-void Graph::union_set(int u, int v) {
+void Graph::unionTake(int u, int v) {
   parent[u] = parent[v];
 }
 
 void Graph::kruskal() {
-  int i, uRep, vRep;
-  sort(G.begin(), G.end());  // increasing weight
+  int i, comp1, comp2;
+
+  // Sort graph in order from least to greatest edge weight
+  sort(G.begin(), G.end());
+
   for (i = 0; i < G.size(); i++) {
-    uRep = find_set(G[i].second.first);
-    vRep = find_set(G[i].second.second);
-    cout << uRep << endl;
-    cout << vRep << endl;
-    if (uRep != vRep) {
-      T.push_back(G[i]);  // add to tree
-      union_set(uRep, vRep);
+    comp1 = setSearch(G[i].second.first);
+    comp2 = setSearch(G[i].second.second);
+    if (comp1 != comp2) {
+      // Add vertex to tree
+      MST.push_back(G[i]);
+      unionTake(comp1, comp2);
     }
   }
 }
 
-void Graph::print() {
+int Graph::setSearch(int i) {
+  // Check parentage of i
+  if (i == parent[i])
+    return i;
+  else
+    return setSearch(parent[i]);
+}
+
+double Graph::calcWeight() {
   double minimumCost = 0;
-  // cout << "Edge :"
-  //    << " Weight" << endl;
-  for (int i = 0; i < T.size(); i++) {
-    cout << T[i].second.first << " - " << T[i].second.second << " : "
-       << T[i].first;
-    cout << endl;
-    minimumCost += T[i].first;
+  for (int i = 0; i < MST.size(); i++) {
+    minimumCost += MST[i].first;
   }
-  cout << "Minimum Cost: " << minimumCost << endl;
+  return minimumCost;
 }
 
 // Limit to decide whether to include edges
@@ -105,98 +88,131 @@ bool limit(double num) {
 
 int main(int argc, char* argv[]) {
     
-  // number of vertices
+  // Number of vertices
   int n = atoi(argv[2]);
 
-  // number of trials 
+  // Number of trials 
   int trials = atoi(argv[3]);
 
-  // number of dimensions - 0, 2, 3, 4
+  // Number of dimensions - 0, 2, 3, 4
   int dim = atoi(argv[4]);
 
+  // Generate graph with n vertices
   Graph g(n);
 
+  // Hold MST weights
+  std::vector< double > arr;
+
+  // Generate random double between 0 and 1
   std::random_device rd;
   std::mt19937 engine(rd());
   std::uniform_real_distribution<double> dist(0.0, 1.0);
 
+  // Dimension 0
   if (dim == 0) {
-    for (int k = 0; k<trials; k++) {
-      g.G.clear();
-      g.T.clear();
+    for (int k = 0; k < trials; k++) {
+        for (int i = 0; i < n; i++) {
+          for (int j = i+1; j < n; j++) {
+              double num = dist(engine);
+              if (limit(num)) {
+                g.addEdge(i, j, num);
+              }
+          }
+        }
+      g.kruskal();
+      }
+      double weight = g.calcWeight();
+      arr.push_back(weight);
+      double sum = accumulate(arr.begin(), arr.end(), 0.0);
+      double avg = sum / arr.size();
+      cout << avg << " " << n << " " << trials << " " << dim << endl;
+  }
+  // Dimension 2
+  else if (dim == 2) {
+    for (int k = 0; k < trials; k++) {
+    double dim2coords[n][2];
+          for (int i=0; i < n; i++) {
+              dim2coords[i][0] = dist(engine);
+              dim2coords[i][1] = dist(engine);
+          }
       for (int i = 0; i < n; i++) {
         for (int j = i+1; j < n; j++) {
-            double num = dist(engine);
-            cout << num << endl;
+            double sqdist = pow((dim2coords[i][0] - dim2coords[j][0]), 2) + 
+                            pow((dim2coords[i][1] - dim2coords[j][1]), 2);
+            double num = sqrt(sqdist);
             if (limit(num)) {
-              g.add_edge(i, j, num);
+              g.addEdge(i, j, num);
             }
         }
       }
-      g.kruskal();
-      g.print();
+    g.kruskal();
     }
+    double weight = g.calcWeight();
+    arr.push_back(weight);
+    double sum = accumulate(arr.begin(), arr.end(), 0.0);
+    double avg = sum / arr.size();
+    cout << avg << " " << n << " " << trials << " " << dim << endl;
   }
-  else if (dim == 2) {
-    double dim2coords[n][2];
-        for (int i=0; i < n; i++) {
-            dim2coords[i][0] = dist(engine);
-            dim2coords[i][1] = dist(engine);
-        }
-    for (int i = 0; i < n; i++) {
-      for (int j = i+1; j < n; j++) {
-          double sqdist = pow((dim2coords[i][0] - dim2coords[j][0]), 2) + 
-                          pow((dim2coords[i][1] - dim2coords[j][1]), 2);
-          double num = sqrt(sqdist);
-          if (limit(num)) {
-            g.add_edge(i, j, num);
-          }
-      }
-    }
-  }
+  // Dimension 3
   else if (dim == 3) {
-    double dim3coords[n][3];
-      for (int i=0; i < n; i++) {
-        dim3coords[i][0] = dist(engine);
-        dim3coords[i][1] = dist(engine);
-        dim3coords[i][2] = dist(engine);
+    for (int k = 0; k < trials; k++) {
+      double dim3coords[n][3];
+        for (int i=0; i < n; i++) {
+          dim3coords[i][0] = dist(engine);
+          dim3coords[i][1] = dist(engine);
+          dim3coords[i][2] = dist(engine);
+        }
+      for (int i = 0; i < n; i++) {
+        for (int j = i+1; j < n; j++) {
+            double sqdist = pow((dim3coords[i][0] - dim3coords[j][0]), 2) + 
+                            pow((dim3coords[i][1] - dim3coords[j][1]), 2) +
+                            pow((dim3coords[i][2] - dim3coords[j][2]), 2);
+            double num = sqrt(sqdist);
+            if (limit(num)) {
+              g.addEdge(i, j, num);
+            }
+        }
       }
-    for (int i = 0; i < n; i++) {
-      for (int j = i+1; j < n; j++) {
-          double sqdist = pow((dim3coords[i][0] - dim3coords[j][0]), 2) + 
-                          pow((dim3coords[i][1] - dim3coords[j][1]), 2) +
-                          pow((dim3coords[i][2] - dim3coords[j][2]), 2);
-          double num = sqrt(sqdist);
-          if (limit(num)) {
-            g.add_edge(i, j, num);
-          }
-      }
+    g.kruskal();
     }
+    double weight = g.calcWeight();
+    arr.push_back(weight);
+    double sum = accumulate(arr.begin(), arr.end(), 0.0);
+    double avg = sum / arr.size();
+    cout << avg << " " << n << " " << trials << " " << dim << endl;
   }
+  // Dimension 4
   else if (dim == 4) {
-    double dim4coords[n][4];
-      for (int i=0; i < n; i++) {
-        dim4coords[i][0] = dist(engine);
-        dim4coords[i][1] = dist(engine);
-        dim4coords[i][2] = dist(engine);
-        dim4coords[i][3] = dist(engine);
+    for (int k = 0; k < trials; k++) {
+      double dim4coords[n][4];
+        for (int i=0; i < n; i++) {
+          dim4coords[i][0] = dist(engine);
+          dim4coords[i][1] = dist(engine);
+          dim4coords[i][2] = dist(engine);
+          dim4coords[i][3] = dist(engine);
+        }
+      for (int i = 0; i < n; i++) {
+        for (int j = i+1; j < n; j++) {
+            double sqdist = pow((dim4coords[i][0] - dim4coords[j][0]), 2) + 
+                            pow((dim4coords[i][1] - dim4coords[j][1]), 2) +
+                            pow((dim4coords[i][2] - dim4coords[j][2]), 2) +
+                            pow((dim4coords[i][3] - dim4coords[j][3]), 2);
+            double num = sqrt(sqdist);
+            if (limit(num)) {
+              g.addEdge(i, j, num);
+            }
+        }
       }
-    for (int i = 0; i < n; i++) {
-      for (int j = i+1; j < n; j++) {
-          double sqdist = pow((dim4coords[i][0] - dim4coords[j][0]), 2) + 
-                          pow((dim4coords[i][1] - dim4coords[j][1]), 2) +
-                          pow((dim4coords[i][2] - dim4coords[j][2]), 2) +
-                          pow((dim4coords[i][3] - dim4coords[j][3]), 2);
-          double num = sqrt(sqdist);
-          if (limit(num)) {
-            g.add_edge(i, j, num);
-          }
-      }
-    }
+    g.kruskal();
   }
-  else {cout << "Wrong Input" << endl;};
-
-
+    double weight = g.calcWeight();
+    arr.push_back(weight);
+    double sum = accumulate(arr.begin(), arr.end(), 0.0);
+    double avg = sum / arr.size();
+    cout << avg << " " << n << " " << trials << " " << dim << endl;
+  }
+  // Error Message
+  else {cout << "Please input 0, 2, 3 or 4 as the dimension." << endl;};
 
   return 0;
 }

@@ -14,46 +14,40 @@
 using namespace std;
 #define edge pair<int, int>
 
-class Graph {
+// Define class Edges
+class Edges {
   public:
-  int *parent;
+  int *parent; // Parent vertex value
   int V; // Vertices in graph
-  Graph(int V);
-  void addEdge(int u, int v, double w);
-  void unionTake(int u, int v);
-  void kruskalAlg();
-  int setSearch(int i);
-  double calcWeight();
+  Edges(int V); // Graph
+  void addEdge(int u, int v, double w); // Add a vertex edge pair to the graph
+  void unionTake(int u, int v); // Take the union of two sets
+  void kruskalAlg(); // Run Kruskal's Alg
+  int setSearch(int i); // Look up parents of a vertex
+  double calcWeight(); // Calculate total weight of MST
   vector<pair<double, edge> > G;  // Complete Graph
   vector<pair<double, edge> > MST;  // MST
 };
 
-Graph::Graph(int V) {
-  parent = new int[V];
-  for (int i = 0; i < V; i++){
-    parent[i] = i;
-  }
-  G.clear();
-  MST.clear();
-}
-
-void Graph::addEdge(int u, int v, double d) {
+// Add a vertex edge pair to the graph
+void Edges::addEdge(int u, int v, double d) {
   G.push_back(make_pair(d, edge(u, v)));
 }
 
-void Graph::unionTake(int u, int v) {
+// Take the union of two sets
+void Edges::unionTake(int u, int v) {
   parent[u] = parent[v];
 }
 
-void Graph::kruskalAlg() {
-  int i, comp1, comp2;
-
+// Run Kruskal's Alg
+void Edges::kruskalAlg() {
   // Sort graph in order from least to greatest edge weight
   sort(G.begin(), G.end());
 
-  for (i = 0; i < G.size(); i++) {
-    comp1 = setSearch(G[i].second.first);
-    comp2 = setSearch(G[i].second.second);
+  for (int i = 0; i < G.size(); i++) {
+    // Check parentage of the vertices
+    int comp1 = setSearch(G[i].second.first);
+    int comp2 = setSearch(G[i].second.second);
     if (comp1 != comp2) {
       // Add vertex to tree
       MST.push_back(G[i]);
@@ -62,7 +56,8 @@ void Graph::kruskalAlg() {
   }
 }
 
-int Graph::setSearch(int i) {
+// Look up parents of a vertex
+int Edges::setSearch(int i) {
   // Check parentage of i
   if (i == parent[i])
     return i;
@@ -70,7 +65,8 @@ int Graph::setSearch(int i) {
     return setSearch(parent[i]);
 }
 
-double Graph::calcWeight() {
+// Calculate total weight of MST
+double Edges::calcWeight() {
   double minimumCost = 0;
   for (int i = 0; i < MST.size(); i++) {
     minimumCost += MST[i].first;
@@ -86,6 +82,16 @@ bool limit(double num) {
     return false;
 };
 
+// Set up graph
+Edges::Edges(int V) {
+  parent = new int[V];
+  for (int i = 0; i < V; i++){
+    parent[i] = i;
+  }
+  MST.clear();
+  G.clear();
+}
+
 int main(int argc, char* argv[]) {
     
   // Number of vertices
@@ -98,7 +104,7 @@ int main(int argc, char* argv[]) {
   int dim = atoi(argv[4]);
 
   // Generate graph with n vertices
-  Graph g(n);
+  Edges g(n);
 
   // Hold MST weights
   std::vector< double > arr;
@@ -123,8 +129,10 @@ int main(int argc, char* argv[]) {
         double weight = g.calcWeight();
         arr.push_back(weight);
       }
+      // Calculate average MST weight
       double sum = accumulate(arr.begin(), arr.end(), 0.0);
       double avg = sum / arr.size();
+      // Print average, numpoints, numtrials, dimension
       cout << avg << " " << n << " " << trials << " " << dim << endl;
   }
   // Dimension 2
@@ -149,8 +157,10 @@ int main(int argc, char* argv[]) {
       double weight = g.calcWeight();
       arr.push_back(weight);
     }
+    // Calculate average MST weight
     double sum = accumulate(arr.begin(), arr.end(), 0.0);
     double avg = sum / arr.size();
+    // Print average, numpoints, numtrials, dimension
     cout << avg << " " << n << " " << trials << " " << dim << endl;
   }
   // Dimension 3
@@ -177,8 +187,10 @@ int main(int argc, char* argv[]) {
       double weight = g.calcWeight();
       arr.push_back(weight);
     }
+    // Calculate average MST weight
     double sum = accumulate(arr.begin(), arr.end(), 0.0);
     double avg = sum / arr.size();
+    // Print average, numpoints, numtrials, dimension
     cout << avg << " " << n << " " << trials << " " << dim << endl;
   }
   // Dimension 4
@@ -207,12 +219,13 @@ int main(int argc, char* argv[]) {
       double weight = g.calcWeight();
       arr.push_back(weight);
     }
+    // Calculate average MST weight
     double sum = accumulate(arr.begin(), arr.end(), 0.0);
     double avg = sum / arr.size();
+    // Print average, numpoints, numtrials, dimension
     cout << avg << " " << n << " " << trials << " " << dim << endl;
   }
   // Error Message
   else {cout << "Please input 0, 2, 3 or 4 as the dimension." << endl;};
-
   return 0;
 }
